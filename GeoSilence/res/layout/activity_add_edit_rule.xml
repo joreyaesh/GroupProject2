@@ -1,0 +1,73 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AddEditRule" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewEnterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textEnterName"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textCapWords" >
+
+            <requestFocus />
+        </EditText>
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/mode_select" />
+
+		<Button
+		    android:id="@+id/buttonSetLocation"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:onClick="setLocationHandler"
+		    android:text="@string/textButtonSetLocation" />
+
+        <TextView
+            android:id="@+id/textViewSelectWeekdays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textSelectWeekdays"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/weekday" />
+
+        <TextView
+            android:id="@+id/textViewTimeFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textTimeFrom"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textViewTimeTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textTimeTo"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+    </LinearLayout>
+</ScrollView>

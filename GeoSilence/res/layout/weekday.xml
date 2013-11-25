@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ToggleButton
+            android:id="@+id/toggleButtonSun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:textOff="@string/weekdaySun"
+            android:textOn="@string/weekdaySun" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonMon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:textOff="@string/weekdayMon"
+            android:textOn="@string/weekdayMon" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonTue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:textOff="@string/weekdayTue"
+            android:textOn="@string/weekdayTue" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonWed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:textOff="@string/weekdayWed"
+            android:textOn="@string/weekdayWed" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:textOff="@string/weekdayThu"
+            android:textOn="@string/weekdayThu" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonFri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:textOff="@string/weekdayFri"
+            android:textOn="@string/weekdayFri" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonSat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:textOff="@string/weekdaySat"
+            android:textOn="@string/weekdaySat" />
+
+    </LinearLayout>
+
+</HorizontalScrollView>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GeoSilence</string>
+    <string name="title_activity_add_edit_rule">Add/Edit</string><string name="title_activity_map">MapActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_add">Add rule</string>
+    <string name="discard">Discard rule</string>
+    <string name="action_select">Select</string><string name="action_save">Save</string><string name="textEnterName">Name</string>
+    <string name="textSelectRadius">Select active radius</string><string name="textButtonChangeLocation">Change Location</string>
+
+    <string-array name="week">
+        <item>S</item>
+        <item>M</item>
+        <item>T</item>
+        <item>W</item>
+        <item>T</item>
+        <item>F</item>
+        <item>S</item>
+    </string-array>
+
+        <string name="textButtonSetLocation">Pick Location</string>
+        <string name="textSelectWeekdays">Select Weekdays</string>
+        <string name="textTimeFrom">From</string>
+        <string name="textTimeTo">To</string>
+        <string name="textSelectMode">Select Mode</string>
+        <string name="action_satellite">Satellite View</string>
+        <string name="action_normal">Normal View</string>
+        <string name="textSilentMode">Silent</string>
+        <string name="textVibrateMode">Vibrate</string>
+        <string name="textNormalMode">Normal</string>
+        <string name="textLoudMode">Loud</string>
+        <string name="weekdayMon">M</string>
+        <string name="weekdaySun">S</string>
+        <string name="weekdayTue">T</string>
+        <string name="weekdayWed">W</string>
+        <string name="weekdayThu">T</string>
+        <string name="weekdayFri">F</string>
+        <string name="weekdaySat">S</string>
+
+    
+    
+    
+    
+
+</resources>
