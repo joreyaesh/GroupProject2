@@ -46,6 +46,7 @@ public class AddEditRule extends Activity {
 		i.putExtra(MapActivity.LOCATION, latLng);
 		i.putExtra(MapActivity.RADIUS, radius);
 		startActivityForResult(i, GET_LOC);
+		//comment :-)
 	}
 
 	/**
