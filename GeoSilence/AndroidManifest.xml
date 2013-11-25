@@ -19,6 +19,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -31,7 +33,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="edu.cmich.cps396m.geosilence.RuleList"
+            android:name="edu.cmich.cps396m.geosilence.app.RuleList"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.cmich.cps396m.geosilence.AddEditRule"
+            android:name="edu.cmich.cps396m.geosilence.app.AddEditRule"
             android:label="@string/title_activity_add_edit_rule" >
         </activity>
 
@@ -49,14 +51,26 @@
             android:value="AIzaSyACiWOD0Dtxc-_nxuZg35XdMhcQJ1EgVIo" />
 
         <activity
-            android:name="edu.cmich.cps396m.geosilence.MapActivity"
+            android:name="edu.cmich.cps396m.geosilence.app.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
 
         <activity
-            android:name="edu.cmich.cps396m.geosilence.Preferences"
+            android:name="edu.cmich.cps396m.geosilence.app.Preferences"
             android:label="Preferences">
         </activity>
+        
+        <receiver android:name="PollReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED"/>
+			</intent-filter>
+		</receiver>
+
+		<service android:name="SuperBackroundAgent">
+		    
+		</service>
+		
+		 <service android:enabled="true" android:name=".GPSUpdater" android:label="My Service"/>
     </application>
 
 </manifest>

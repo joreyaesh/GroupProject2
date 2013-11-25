@@ -30,7 +30,7 @@ import com.fortysevendeg.swipelistview.SwipeListView;
 import java.util.List;
 
 import edu.cmich.cps396m.geosilence.R;
-import edu.cmich.cps396m.geosilence.RuleList;
+import edu.cmich.cps396m.geosilence.app.RuleList;
 
 public class PackageAdapter extends BaseAdapter {
 

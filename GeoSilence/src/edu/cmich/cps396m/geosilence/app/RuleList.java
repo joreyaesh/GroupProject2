@@ -1,4 +1,4 @@
-package edu.cmich.cps396m.geosilence;
+package edu.cmich.cps396m.geosilence.app;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,11 @@ import com.fortysevendeg.swipelistview.SwipeListView;
 import com.fortysevendeg.swipelistview.sample.adapters.PackageAdapter;
 import com.fortysevendeg.swipelistview.sample.adapters.PackageItem;
 
+import edu.cmich.cps396m.geosilence.R;
+import edu.cmich.cps396m.geosilence.Rule;
+import edu.cmich.cps396m.geosilence.StorageManager;
 import edu.cmich.cps396m.geosilence.StorageManager.DataException;
+import edu.cmich.cps396m.geosilence.service.PollReceiver;
 
 /**
  * Main activity displaying a list of rules
@@ -50,6 +54,7 @@ public class RuleList extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_rule_list);
+		
 		PollReceiver.scheduleAlarms(this); //Make service persistent (no real way to make an UNKILLABLE app)
 		storageManager = new StorageManager(this);	//handles all rule storage
 		audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);  //handles sound profile changing

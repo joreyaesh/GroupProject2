@@ -1,4 +1,4 @@
-package edu.cmich.cps396m.geosilence;
+package edu.cmich.cps396m.geosilence.service;
 
 import android.app.AlertDialog;
 import android.app.Service;
@@ -34,7 +34,7 @@ double longitude; // longitude
 private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
 
 // The minimum time between updates in milliseconds
-private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 5; // 5 minutes
+private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 30; // 30 minutes
 
 // Declaring a Location Manager
 protected LocationManager locationManager;
@@ -66,7 +66,7 @@ public Location getLocation() {
                         LocationManager.NETWORK_PROVIDER,
                         MIN_TIME_BW_UPDATES,
                         MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                Log.d("Network", "Network");
+               
                 if (locationManager != null) {
                     location = locationManager
                             .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -150,7 +150,7 @@ public void showSettingsAlert(){
     AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
     // Setting Dialog Title
-    alertDialog.setTitle("Go to GPS settings?");
+    alertDialog.setTitle("GPS is settings");
 
     // Setting Dialog Message
     alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
@@ -176,7 +176,7 @@ public void showSettingsAlert(){
 
 @Override
 public void onLocationChanged(Location location) {
-    this.location = location;
+	this.location = location;
 }
 
 @Override

@@ -1,4 +1,4 @@
-package edu.cmich.cps396m.geosilence;
+package edu.cmich.cps396m.geosilence.app;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +22,12 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import edu.cmich.cps396m.geosilence.R;
+import edu.cmich.cps396m.geosilence.R.id;
+import edu.cmich.cps396m.geosilence.R.layout;
+import edu.cmich.cps396m.geosilence.R.menu;
+import edu.cmich.cps396m.geosilence.R.string;
 
 /**
  * Activity to select a location on map and radius for it.

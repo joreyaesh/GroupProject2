@@ -1,4 +1,4 @@
-package edu.cmich.cps396m.geosilence;
+package edu.cmich.cps396m.geosilence.app;
 
 import java.util.prefs.Preferences;
 
@@ -13,6 +13,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import edu.cmich.cps396m.geosilence.R;
+import edu.cmich.cps396m.geosilence.Rule;
+import edu.cmich.cps396m.geosilence.StorageManager;
+import edu.cmich.cps396m.geosilence.R.id;
+import edu.cmich.cps396m.geosilence.R.layout;
+import edu.cmich.cps396m.geosilence.R.menu;
+import edu.cmich.cps396m.geosilence.R.string;
 
 /**
  * Activity to add a new rule
