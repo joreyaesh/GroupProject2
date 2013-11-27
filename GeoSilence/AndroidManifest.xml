@@ -60,17 +60,19 @@
             android:label="Preferences">
         </activity>
         
+        
         <receiver android:name="PollReceiver">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED"/>
 			</intent-filter>
 		</receiver>
 
-		<service android:name="SuperBackroundAgent">
+		<service android:name="edu.cmich.cps396m.geosilence.service.SuperBackroundAgent">
 		    
 		</service>
 		
 		 <service android:enabled="true" android:name=".GPSUpdater" android:label="My Service"/>
+		 
     </application>
 
 </manifest>

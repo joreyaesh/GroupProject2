@@ -56,6 +56,7 @@ public class RuleList extends Activity {
 		setContentView(R.layout.activity_rule_list);
 		
 		PollReceiver.scheduleAlarms(this); //Make service persistent (no real way to make an UNKILLABLE app)
+		
 		storageManager = new StorageManager(this);	//handles all rule storage
 		audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);  //handles sound profile changing
 		

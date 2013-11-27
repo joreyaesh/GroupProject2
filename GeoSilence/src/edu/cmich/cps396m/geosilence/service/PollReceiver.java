@@ -27,14 +27,13 @@ public class PollReceiver extends BroadcastReceiver {
 	}
 
 	public static void scheduleAlarms(Context ctxt) {
-		AlarmManager mgr = (AlarmManager) ctxt
-				.getSystemService(Context.ALARM_SERVICE);
+		AlarmManager mgr = (AlarmManager) ctxt.getSystemService(Context.ALARM_SERVICE);
 		Intent i = new Intent(ctxt, PollReceiver.class);
 		PendingIntent pi = PendingIntent.getBroadcast(ctxt, 0, i, 0);
 
-		mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-				SystemClock.elapsedRealtime() + INITIAL_DELAY, PERIOD, pi);
-		Log.d("GS", "Alarms schedules");
+		mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()
+				+ INITIAL_DELAY, PERIOD, pi);
+		Log.d("GS", "Alarms scheduled");
 	}
 
 	public void changeIntveral(int minutes) {

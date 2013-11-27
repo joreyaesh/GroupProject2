@@ -10,9 +10,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -24,10 +24,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.cmich.cps396m.geosilence.R;
-import edu.cmich.cps396m.geosilence.R.id;
-import edu.cmich.cps396m.geosilence.R.layout;
-import edu.cmich.cps396m.geosilence.R.menu;
-import edu.cmich.cps396m.geosilence.R.string;
 
 /**
  * Activity to select a location on map and radius for it.

@@ -17,10 +17,6 @@ import com.google.android.gms.maps.model.LatLng;
 import edu.cmich.cps396m.geosilence.R;
 import edu.cmich.cps396m.geosilence.Rule;
 import edu.cmich.cps396m.geosilence.StorageManager;
-import edu.cmich.cps396m.geosilence.R.id;
-import edu.cmich.cps396m.geosilence.R.layout;
-import edu.cmich.cps396m.geosilence.R.menu;
-import edu.cmich.cps396m.geosilence.R.string;
 
 /**
  * Activity to add a new rule
@@ -34,7 +30,6 @@ public class AddEditRule extends Activity {
 
 	private LatLng latLng;
 	private double radius;
-	private char[] weekdays;
 
 	private Rule existing_rule;
 
@@ -73,8 +68,7 @@ public class AddEditRule extends Activity {
 		case GET_LOC:
 			if (resultCode == RESULT_OK) {
 				Bundle b = data.getExtras();
-				setLocationData((LatLng) b.get(MapActivity.LOCATION),
-						b.getDouble(MapActivity.RADIUS));
+				setLocationData((LatLng) b.get(MapActivity.LOCATION), b.getDouble(MapActivity.RADIUS));
 			}
 			break;
 		}
