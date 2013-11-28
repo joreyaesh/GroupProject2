@@ -94,15 +94,10 @@ public class StorageManager {
 		return null;
 	}
 
-	public void replaceRule(Rule updatedRule) {
-		Rule oldRule = findRuleByName(updatedRule.getName());
-		// get the index
-		int index = rules.indexOf(oldRule);
-		// delete the old rule
-		deleteRule(oldRule);
-		// add the newly updated rule in the index of the old rule
-		rules.add(index, updatedRule);
-		// save changes
+	public void replaceRule(int index, Rule updatedRule) throws DataException {
+		if (rules.get(index) == null)
+			throw new DataException("Invalid index for rule editing");
+		rules.set(index, updatedRule);
 		write();
 	}
 
