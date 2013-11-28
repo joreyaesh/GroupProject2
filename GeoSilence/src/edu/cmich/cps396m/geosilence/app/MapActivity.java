@@ -2,6 +2,7 @@ package edu.cmich.cps396m.geosilence.app;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.cmich.cps396m.geosilence.R;
+import edu.cmich.cps396m.geosilence.service.GPSTracker;
 
 /**
  * Activity to select a location on map and radius for it.
@@ -151,8 +154,13 @@ public class MapActivity extends Activity {
 			}
 			saveLocationAndReturn();
 			break;
+			
 		case R.id.action_satellite:
-			//TODO get current location
+			GPSTracker gps = new GPSTracker(this);
+			LatLng point = new LatLng(gps.getLatitude(),gps.getLongitude());
+			updateMarker(point);
+			
+			
 			//TODO scroll map to current location
 			//TODO place pin in current location
 			break;
