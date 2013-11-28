@@ -152,7 +152,9 @@ public class MapActivity extends Activity {
 			saveLocationAndReturn();
 			break;
 		case R.id.action_satellite:
-			//TODO
+			//TODO get current location
+			//TODO scroll map to current location
+			//TODO place pin in current location
 			break;
 		case R.id.action_normal:
 			//TODO
