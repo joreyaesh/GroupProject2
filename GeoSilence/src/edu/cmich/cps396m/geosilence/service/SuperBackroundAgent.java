@@ -71,7 +71,7 @@ public class SuperBackroundAgent extends WakefulIntentService{
     	if (rule.isActive() && 
     			//TODO check time interval
     							//TODO check weekday
-    			isWithinRadius(rule.getLat(), rule.getLan(), loc.getLatitude(), loc.getLongitude(), rule.getRadius())){
+    			isWithinRadius(rule.getLat(), rule.getLng(), loc.getLatitude(), loc.getLongitude(), rule.getRadius())){
     		return true;
     	}
     	

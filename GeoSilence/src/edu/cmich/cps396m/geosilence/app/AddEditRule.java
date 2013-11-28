@@ -85,7 +85,7 @@ public class AddEditRule extends Activity {
 		
 		if (getIntent().hasExtra(NRL)) {
 			existing_rule = (Rule) getIntent().getExtras().get(NRL);
-			setLocationData(new LatLng(existing_rule.getLat(), existing_rule.getLan()), existing_rule.getRadius()) ;
+			setLocationData(new LatLng(existing_rule.getLat(), existing_rule.getLng()), existing_rule.getRadius()) ;
 			
 			// TODO
 			existing_rule.getStartTime();

@@ -18,9 +18,9 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -54,25 +54,20 @@
             android:name="edu.cmich.cps396m.geosilence.app.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
-
         <activity
             android:name="edu.cmich.cps396m.geosilence.app.Preferences"
-            android:label="Preferences">
+            android:label="Preferences" >
         </activity>
-        
-        
-        <receiver android:name="edu.cmich.cps396m.geosilence.service.PollReceiver" android:enabled="true">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED"/>
-			</intent-filter>
-		</receiver>
 
-		<service android:name="edu.cmich.cps396m.geosilence.service.SuperBackroundAgent">
-		    
-		</service>
-		
-		 <service android:enabled="true" android:name=".GPSUpdater" android:label="My Service"/>
-		 
+        <receiver
+            android:name="edu.cmich.cps396m.geosilence.service.PollReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="edu.cmich.cps396m.geosilence.service.SuperBackroundAgent" />
     </application>
 
 </manifest>
