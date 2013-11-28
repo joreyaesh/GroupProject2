@@ -32,10 +32,8 @@ import edu.cmich.cps396m.geosilence.service.PollReceiver;
  */
 public class RuleList extends Activity {
 
-	private static final int AR = -1; // request code for "Add Rule"
-	// private static final int ER = 5786432; // request code for "Edit Rule"
-	// request for edit rule is now the index of rule to edit
-
+	private static final int AR = Integer.MAX_VALUE; // request code for "Add Rule"
+	
 	private StorageManager storageManager;
 
 	// Custom ListView stuff
@@ -194,8 +192,9 @@ public class RuleList extends Activity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d("GS", "Result received with resultCode="+resultCode+",requestCode:"+requestCode);
 		if (resultCode == RESULT_OK) {
-			if (requestCode == -1) {
+			if (requestCode == AR) {
 				// if a new rule was returned from AddEditRule, save it and
 				// refresh list
 				Bundle b = data.getExtras();

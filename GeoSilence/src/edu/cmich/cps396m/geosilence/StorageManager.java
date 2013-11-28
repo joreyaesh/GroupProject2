@@ -42,6 +42,7 @@ public class StorageManager {
 			Log.w("GS", "Failed to read from " + filename + ". File could be corrupted or non-existant");
 			storageFile.delete();
 			rules = new ArrayList<Rule>();
+			write();
 		}
 	}
 

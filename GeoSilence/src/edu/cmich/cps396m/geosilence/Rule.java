@@ -2,17 +2,19 @@ package edu.cmich.cps396m.geosilence;
 
 import java.io.Serializable;
 
+import android.media.AudioManager;
+
 public class Rule implements Serializable {
 	/**
 	 * increment every time a change is made to this class structure
 	 */
-	private static final long serialVersionUID = 4;
+	private static final long serialVersionUID = 5;
 
 	private String name;
 
 	private double lat;
 	private double lng;
-	private double radius;
+	private int radius;
 	private int mode;
 	private boolean[] weekdays;
 	private int startTime;
@@ -27,7 +29,24 @@ public class Rule implements Serializable {
 				+ "]";
 	}
 
-	public Rule(String name, double lat, double lng, double radius, int mode, boolean[] weekdays, int startTime,
+	/**
+	 * creating a rule object with default values
+	 */
+	public Rule() {
+		this.name = "";
+		this.lat = 0;
+		this.lng = 0;
+		this.radius = 0;
+		this.mode = AudioManager.RINGER_MODE_NORMAL;
+		boolean[] tmp = { true, true, true, true, true, true, true };
+		this.weekdays = tmp;
+		this.startTime = 0;
+		this.endTime = 0;
+		this.active = true;
+	}
+	
+	
+	public Rule(String name, double lat, double lng, int radius, int mode, boolean[] weekdays, int startTime,
 			int endTime, boolean active) {
 		this.name = name;
 		this.lat = lat;
@@ -64,11 +83,11 @@ public class Rule implements Serializable {
 		this.lng = lan;
 	}
 
-	public double getRadius() {
+	public int getRadius() {
 		return radius;
 	}
 
-	public void setRadius(double radius) {
+	public void setRadius(int radius) {
 		this.radius = radius;
 	}
 
