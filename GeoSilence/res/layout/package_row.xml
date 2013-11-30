@@ -65,21 +65,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             style="@style/ListTitle"
-            android:id="@+id/example_row_tv_title"
-            android:focusable="false"
-            android:enabled="false"
-            android:clickable="false" />
+            android:id="@+id/example_row_tv_title" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/example_row_tv_title"
             style="@style/ListDescription"
-            android:id="@+id/example_row_tv_description"
-            android:inputType="textMultiLine"
-            android:focusable="false"
-            android:enabled="false"
-            android:clickable="false" />
+            android:id="@+id/example_row_tv_description" />
 
     </RelativeLayout>
 

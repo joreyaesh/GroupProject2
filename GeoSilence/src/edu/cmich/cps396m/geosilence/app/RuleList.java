@@ -1,8 +1,5 @@
 package edu.cmich.cps396m.geosilence.app;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,12 +11,16 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.fortysevendeg.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.swipelistview.SwipeListView;
 import com.fortysevendeg.swipelistview.sample.adapters.PackageAdapter;
 import com.fortysevendeg.swipelistview.sample.adapters.PackageItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.cmich.cps396m.geosilence.R;
 import edu.cmich.cps396m.geosilence.Rule;
@@ -69,7 +70,7 @@ public class RuleList extends Activity {
 
 		swipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
 			@Override
-			public void onOpened(int position, boolean toRight) {
+            public void onOpened(int position, boolean toRight) {
 			}
 
 			@Override
@@ -87,6 +88,8 @@ public class RuleList extends Activity {
 			@Override
 			public void onStartOpen(int position, int action, boolean right) {
 				Log.d("swipe", String.format("onStartOpen %d - action %d", position, action));
+                // Make sure the Enable/Disable button is updated
+                updateButtonText(position);
 			}
 
 			@Override
@@ -127,7 +130,7 @@ public class RuleList extends Activity {
 	}
 
 	private void reload() {
-		swipeListView.setSwipeMode(SwipeListView.SWIPE_MODE_BOTH);
+		swipeListView.setSwipeMode(SwipeListView.SWIPE_MODE_LEFT);
 		swipeListView.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_REVEAL);
 		swipeListView.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
 		swipeListView.setOffsetLeft(convertDpToPixel(0));
@@ -158,14 +161,15 @@ public class RuleList extends Activity {
 				break;
 			// ENABLE/DISABLE button
 			case MESSAGE_DISABLE_RULE:
-				rule.setActive(!rule.isActive());
-				data.get(position).setActive(!rule.isActive());
+                boolean status = rule.isActive();
+				rule.setActive(!status);
+				data.get(position).setActive(!status);
+                storageManager.write();
 				Toast.makeText(getApplicationContext(),
-						"Rule " + rule.getName() + (rule.isActive() ? " disabled" : " enabled"), Toast.LENGTH_SHORT)
+						"Rule " + rule.getName() + (status ? " disabled" : " enabled"), Toast.LENGTH_SHORT)
 						.show();
-				// update the SwipeListView
-				adapter.notifyDataSetChanged();
-				storageManager.write();
+                // update the SwipeListView
+                updateButtonText(position);
 				break;
 			// DELETE button
 			case MESSAGE_DELETE_RULE:
@@ -180,7 +184,16 @@ public class RuleList extends Activity {
 		}
 	};
 
-	@Override
+    private void updateButtonText(int position) {
+        Rule rule = storageManager.getRules().get(position);
+        Button button = (Button) swipeListView.getChildAt(position)
+                .findViewById(R.id.back)
+                .findViewById(R.id.button_disable_rule);
+        button.setText((rule.isActive() ? "Enable" : "Disable"));
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.rule_list, menu);
@@ -223,8 +236,6 @@ public class RuleList extends Activity {
 				}
 
 				PackageItem item = new PackageItem(updatedRule);
-				PackageItem oldItem = new PackageItem(storageManager.findRuleByName(updatedRule.getName()));
-				// get index of old item
 				int index = -1;
 				for (PackageItem packageItem : this.data) {
 					if (packageItem.getName().equals(item.getName()))

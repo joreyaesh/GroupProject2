@@ -23,7 +23,10 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.fortysevendeg.swipelistview.SwipeListView;
 
@@ -68,7 +71,6 @@ public class PackageAdapter extends BaseAdapter {
             convertView = li.inflate(R.layout.package_row, parent, false);
             holder = new ViewHolder();
             holder.tvTitle = (TextView) convertView.findViewById(R.id.example_row_tv_title);
-            holder.tvDescription = (TextView) convertView.findViewById(R.id.example_row_tv_description);
             holder.bAction1 = (ImageButton) convertView.findViewById(R.id.button_edit_rule);
             holder.bAction2 = (Button) convertView.findViewById(R.id.button_disable_rule);
             holder.bAction3 = (ImageButton) convertView.findViewById(R.id.button_delete_rule);
@@ -80,7 +82,6 @@ public class PackageAdapter extends BaseAdapter {
         ((SwipeListView)parent).recycle(convertView, position);
 
         holder.tvTitle.setText(item.getName());
-        holder.tvDescription.setText(item.toString());
 
 
         holder.bAction1.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +111,6 @@ public class PackageAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView tvTitle;
-        TextView tvDescription;
         ImageButton bAction1;
         Button bAction2;
         ImageButton bAction3;

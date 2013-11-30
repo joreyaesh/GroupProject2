@@ -1,7 +1,5 @@
 package edu.cmich.cps396m.geosilence.app;
 
-import java.util.prefs.Preferences;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -81,10 +79,16 @@ public class AddEditRule extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_edit_rule);
 
-		//if an exisiting rule is passed using that rule
+		//if an existing rule is passed using that rule
 		//otherwise generating a new default rule
 		if (getIntent().hasExtra(NRL)) {
 			workingRule = (Rule) getIntent().getExtras().get(NRL);
+            // Don't allow the name to be changed, as it is used when
+            // replacing the old rule with the new one
+            EditText nameField = (EditText) findViewById(R.id.editTextName);
+            nameField.setFocusableInTouchMode(false);
+            nameField.setFocusable(false);
+            nameField.setClickable(false);
 		} else {
 			workingRule = new Rule();
 		}
