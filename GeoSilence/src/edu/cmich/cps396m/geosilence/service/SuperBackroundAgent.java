@@ -58,20 +58,20 @@ public class SuperBackroundAgent extends WakefulIntentService{
 			if (ruleIsTrue(rule)) {
 				ruleToUse = rule;
 				Toast.makeText(getApplicationContext(), "Active Rule Found", Toast.LENGTH_SHORT).show();
-				break;
+				activateRule(ruleToUse);
 			}
-			activateRule(ruleToUse);
+			
 		}
 		
-		gps.stopUsingGPS();
+		gps.stopUsingGPS();                            //can be deleted, only to save battery. We can make this a setting.
 	  }
 	
 	
 	private boolean ruleIsTrue(Rule rule) {
-    	if (rule.isActive() && 
+    	if (rule.isActive()==true && 
     			//TODO check time interval
     							//TODO check weekday
-    			isWithinRadius(rule.getLat(), rule.getLan(), loc.getLatitude(), loc.getLongitude(), rule.getRadius())){
+    			isWithinRadius(rule.getLat(), rule.getLng(), loc.getLatitude(), loc.getLongitude(), rule.getRadius()) == true){
     		return true;
     	}
     	
@@ -81,37 +81,33 @@ public class SuperBackroundAgent extends WakefulIntentService{
 	
 	private boolean isWithinRadius(double lat1, double lng1, double lat2, double lng2, double radius) {
 		double distance = Math.sqrt(Math.pow(lat1 - lat2, 2) + Math.pow(lng1 - lng2, 2));		
-		Log.d("GS", "Distance found: " + distance + "Radius: " + radius);
+		Toast.makeText(getApplicationContext(), "Cal distance", Toast.LENGTH_SHORT).show();
 		return distance < radius;
 	}
 	
 	private void activateRule(Rule rule) {
 		//TODO change to default from settings
 		int mode = AudioManager.RINGER_MODE_NORMAL;
-		if (rule != null)
+		if (rule != null){
 			mode = rule.getMode();
 		
 		//activate profile
 		Toast.makeText(getApplicationContext(), "Changing sound profile", Toast.LENGTH_SHORT).show();
 		AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
 		am.setRingerMode(mode);
+		
+		}
 	}
 
-	@Override
-	public void onDestroy() {
+	//@Override
+	//public void onDestroy() {
 //		AlarmManager am=(AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
 //        Intent i = new Intent(this, SuperBackroundAgent.class);
 //        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
 //        am.set(AlarmManager.RTC_WAKEUP, 1000 * 60 * 10, pi); 
-	 }
+	 //}
 
-//	 @Override
-//	 protected void onHandleIntent(Intent workIntent) {
-//	        
-//	        String dataString = workIntent.getDataString();   //outdated code
-//	      
-//	        
-//	    }
+
 
 
 }

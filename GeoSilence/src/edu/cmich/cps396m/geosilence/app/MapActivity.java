@@ -2,6 +2,7 @@ package edu.cmich.cps396m.geosilence.app;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -24,24 +26,26 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.cmich.cps396m.geosilence.R;
+import edu.cmich.cps396m.geosilence.service.GPSTracker;
 
 /**
  * Activity to select a location on map and radius for it.
  * When calling with intent you can pass it parameters:
  *  - MapActivity.LOCATION: a LatLng object
- *  - MapActivity.RADIUS: a double value in feet(!)
+ *  - MapActivity.RADIUS: an integer value in feet(!)
  * if you want some location to be shown when activity is opened.
  * Location picked is returned through extras with the same parameter keys
  */
 public class MapActivity extends Activity {
 	//possible values of radius in feet
-	public static final List<Integer> radiusValue = Arrays.asList(10, 30, 50, 100, 250, 500, 1000, 2000, 5000, 10000, 50000, 100000, 500000);
+	public static final List<Integer> radiusValues = Arrays.asList(10, 30, 50, 100, 250, 500, 1000, 2000, 5000, 10000, 50000, 100000, 500000);
+	//default radius index to use
 	private static final int DEFAULT_RADIUS = 0;
 	
 	//intent data for location and radius
 	public static final String LOCATION = "LocLatLng";
 	public static final String RADIUS = "RadiusValueAndIWantThisToBeALongStringJustBecause";
-	public static final double FEET_IN_METER = 3.28084;
+	private static final double FEET_IN_METER = 3.28084;
 	
 	private GoogleMap gmap;
 	private SeekBar sb;
@@ -65,12 +69,12 @@ public class MapActivity extends Activity {
 		
 		//setting max progress value and onProgrweessChanged listener for radius seekbar
 		sb = (SeekBar) findViewById(R.id.seekBarRadius);
-		sb.setMax(radiusValue.size() - 1);
+		sb.setMax(radiusValues.size() - 1);
 		sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
-				radius = radiusValue.get(progress);
+				radius = radiusValues.get(progress);
 				updateRadius();
 			}
 			@Override
@@ -79,26 +83,26 @@ public class MapActivity extends Activity {
 			public void onStopTrackingTouch(SeekBar seekBar) {}
 		});
 		
-		//checking if existing location and radius are passed to activity
+		//updating marker if a location has been passed to activity
 		Bundle b = getIntent().getExtras();
 		LatLng loc = (LatLng)b.get(LOCATION);
 		if (loc != null) {
 			updateMarker(loc);
 		}
-		//if radius not passed, setting to default and updating
+		//updating radius if radius value has been passed to activity
 		if (0 == (radius = b.getInt(RADIUS))) {
-			radius = radiusValue.get(DEFAULT_RADIUS);
+			radius = radiusValues.get(DEFAULT_RADIUS);
 		}
 		updateRadius();
 	}
 	
 	/**
-	 * updating the radius in text and on map
+	 * updating the radius value in text and circle on map
 	 */
 	private void updateRadius() {
 		//updating text
 		((TextView) findViewById(R.id.textViewSelectRadius)).setText(getString(R.string.textSelectRadius) + ": " + radius + "ft");
-		//draw circle
+		//(re)draw circle
 		if (circle != null)
 			circle.remove();
 		if (marker != null) {
@@ -150,8 +154,15 @@ public class MapActivity extends Activity {
 			}
 			saveLocationAndReturn();
 			break;
+			
 		case R.id.action_satellite:
-			//TODO
+			GPSTracker gps = new GPSTracker(this);
+			LatLng point = new LatLng(gps.getLatitude(),gps.getLongitude());
+			updateMarker(point);
+			
+			
+			//TODO scroll map to current location
+			//TODO place pin in current location
 			break;
 		case R.id.action_normal:
 			//TODO

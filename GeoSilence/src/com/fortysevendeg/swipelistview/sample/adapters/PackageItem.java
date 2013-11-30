@@ -37,7 +37,7 @@ public class PackageItem {
     public PackageItem(Rule rule) {
         this.name = rule.getName();
         this.lat = rule.getLat();
-        this.lan = rule.getLan();
+        this.lan = rule.getLng();
         this.radius = rule.getRadius();
         this.mode = rule.getMode();
         this.weekdays = rule.getWeekdays();
