@@ -11,7 +11,7 @@ import android.util.Log;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 public class PollReceiver extends BroadcastReceiver {
-	private static int minutes = 1;
+	private static int minutes = 10;
 	private static final int PERIOD = 1000 * 60 * minutes; // min minutes
 	private static final int INITIAL_DELAY = 1000 * 5; // 5 seconds
 
