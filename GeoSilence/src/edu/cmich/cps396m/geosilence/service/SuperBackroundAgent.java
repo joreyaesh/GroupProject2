@@ -1,5 +1,6 @@
 package edu.cmich.cps396m.geosilence.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
@@ -27,7 +28,7 @@ public class SuperBackroundAgent extends WakefulIntentService{
 		super("ScheduledService");
 	}
 	
-	private void checkLocationAndTime() {
+	private void checkLocation() {
           gps=new GPSTracker(this);  //init GPS
     	    	
     	 if(gps.canGetLocation() == true){
@@ -45,12 +46,21 @@ public class SuperBackroundAgent extends WakefulIntentService{
     		 Toast.makeText(getApplicationContext(), "LOCATION NOT FOUND!!!", Toast.LENGTH_SHORT).show();
     	 }
 	}
+	
+	private void checkTime() {
+		 Calendar rightNow = Calendar.getInstance();
+		 int day = rightNow.get(Calendar.DAY_OF_WEEK);
+		 
+		 weekday = day - 1;
+		
+	}
 
-	@Override
+	  @Override
 	  protected void doWakefulWork(Intent intent) {    //Scheualed and loaded, ready to do some work
 		storageManager = new StorageManager(this);
 		List<Rule> rules = storageManager.getRules();
-		checkLocationAndTime();
+		checkLocation();
+		checkTime();
 		
 		Rule ruleToUse = null;
 		
@@ -64,8 +74,8 @@ public class SuperBackroundAgent extends WakefulIntentService{
 		}
 		                                         //can be deleted, only to save battery. We can make this a setting.
 	  }
-	
-	
+
+
 	private boolean ruleIsTrue(Rule rule) {
     	if (rule.isActive()==true && 
     			//TODO check time interval
