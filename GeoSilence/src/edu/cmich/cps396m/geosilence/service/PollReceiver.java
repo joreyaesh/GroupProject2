@@ -17,7 +17,7 @@ public class PollReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context ctxt, Intent i) {
-		Log.d("GS", "Alarm received");
+		//Log.d("GS", "Alarm received");
 		if (i.getAction() == null) {
 			WakefulIntentService.sendWakefulWork(ctxt,
 					SuperBackroundAgent.class);
@@ -33,9 +33,11 @@ public class PollReceiver extends BroadcastReceiver {
 
 		mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()
 				+ INITIAL_DELAY, PERIOD, pi);
-		Log.d("GS", "Alarms scheduled");
+		//Log.d("GS", "Alarms scheduled");
+		
 	}
-
+	
+	
 	public void changeIntveral(int minutes) {
 		this.minutes = minutes;
 	}
