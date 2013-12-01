@@ -1,17 +1,18 @@
 package edu.cmich.cps396m.geosilence.service;
 
-import java.util.Calendar;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.commonsware.cwac.wakeful.WakefulIntentService;
+
+import java.util.Calendar;
+import java.util.List;
 
 import edu.cmich.cps396m.geosilence.Rule;
 import edu.cmich.cps396m.geosilence.StorageManager;
@@ -23,9 +24,12 @@ public class SuperBackroundAgent extends WakefulIntentService{
 	Location loc;
 	StorageManager storageManager; 
 	GPSTracker gps;
+    Handler mHandler;
 	
 	public SuperBackroundAgent() {        //possibly define vars here
-		super("ScheduledService");
+		super(SuperBackroundAgent.class.getName());
+		//super("ScheduledService");
+        mHandler = new Handler();
 	}
 	
 	private void checkLocation() {
@@ -40,10 +44,10 @@ public class SuperBackroundAgent extends WakefulIntentService{
     	 
     	 //keep for debugging
     	 if (loc != null){
-    		 Toast.makeText(getApplicationContext(), "Current Location Found", Toast.LENGTH_SHORT).show();
+    		 toast("Current Location Found");
     	 }
     	 else{
-    		 Toast.makeText(getApplicationContext(), "LOCATION NOT FOUND!!!", Toast.LENGTH_SHORT).show();
+    		 toast("LOCATION NOT FOUND!!!");
     	 }
 	}
 	
@@ -67,7 +71,7 @@ public class SuperBackroundAgent extends WakefulIntentService{
 		for(int i = 0; i < rules.size() && ruleToUse == null; ++i) {
 			if (ruleIsTrue(rules.get(i))) {
 				ruleToUse = rules.get(i);
-				//Toast.makeText(getApplicationContext(), "Active Rule Found", Toast.LENGTH_SHORT).show();
+				toast("Active Rule Found");
 			}
 		 }
 		activateRule(ruleToUse);
@@ -108,13 +112,22 @@ public class SuperBackroundAgent extends WakefulIntentService{
 		AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
 		
 		if(am.getMode() != mode){
-			Toast.makeText(getApplicationContext(), "Changing sound profile", Toast.LENGTH_SHORT).show();	
+			toast("Changing sound profile");
 			am.setRingerMode(mode);
 		}
 		
 		
 		}
 	}
+
+    private void toast(final String text){
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 	//@Override
 	//public void onDestroy() {

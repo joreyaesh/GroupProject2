@@ -184,11 +184,13 @@ public class RuleList extends Activity {
             // Up arrow
             case MESSAGE_MOVE_RULE_UP:
                 storageManager.moveUp(position);
+                Log.d("GS", "Rule moved up");
                 new ListAppTask().execute();
                 break;
             // Down arrow
             case MESSAGE_MOVE_RULE_DOWN:
                 storageManager.moveDown(position);
+                Log.d("GS", "Rule moved down");
                 new ListAppTask().execute();
                 break;
 			}
@@ -200,7 +202,7 @@ public class RuleList extends Activity {
         Button button = (Button) swipeListView.getChildAt(position)
                 .findViewById(R.id.back)
                 .findViewById(R.id.button_disable_rule);
-        button.setText((rule.isActive() ? "Enable" : "Disable"));
+        button.setText((rule.isActive() ? "Disable" : "Enable"));
         adapter.notifyDataSetChanged();
     }
 
@@ -237,7 +239,6 @@ public class RuleList extends Activity {
 				Rule updatedRule = (Rule) bb.get(AddEditRule.NRL);
 				try {
 					storageManager.replaceRule(requestCode, updatedRule);
-                    new ListAppTask().execute();
 				} catch (DataException e) {
 					Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
 					Log.e("GS", "Error saving updated rule: " + e.getMessage());
@@ -245,8 +246,6 @@ public class RuleList extends Activity {
 
                 new ListAppTask().execute();
 				Toast.makeText(this, "Rule " + updatedRule.getName() + " updated", Toast.LENGTH_LONG).show();
-				// update the SwipeListView
-				swipeListView.closeAnimate(requestCode);
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
