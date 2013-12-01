@@ -62,8 +62,7 @@ public class SuperBackroundAgent extends WakefulIntentService{
 			}
 			
 		}
-		
-		gps.stopUsingGPS();                            //can be deleted, only to save battery. We can make this a setting.
+		                                         //can be deleted, only to save battery. We can make this a setting.
 	  }
 	
 	
