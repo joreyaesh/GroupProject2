@@ -79,9 +79,11 @@ public class SuperBackroundAgent extends WakefulIntentService{
 	}
 	
 	private boolean isWithinRadius(double lat1, double lng1, double lat2, double lng2, double radius) {
-		double distance = Math.sqrt(Math.pow(lat1 - lat2, 2) + Math.pow(lng1 - lng2, 2));		
-		Toast.makeText(getApplicationContext(), "Cal distance", Toast.LENGTH_SHORT).show();
-		return distance < radius;
+		float[] results = new float[3];
+		Location.distanceBetween(lat1, lng1, lat2, lng2, results);
+		double distanceFt = results[0] * 3.28084;
+		Log.d("GS", "Distance found: " + distanceFt + "ft, radius: " + radius + "ft.");
+		return distanceFt < radius;
 	}
 	
 	private void activateRule(Rule rule) {
