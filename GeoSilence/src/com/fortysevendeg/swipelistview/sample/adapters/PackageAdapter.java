@@ -71,6 +71,8 @@ public class PackageAdapter extends BaseAdapter {
             convertView = li.inflate(R.layout.package_row, parent, false);
             holder = new ViewHolder();
             holder.tvTitle = (TextView) convertView.findViewById(R.id.example_row_tv_title);
+            holder.bActionUp = (ImageButton) convertView.findViewById(R.id.button_move_up);
+            holder.bActionDown = (ImageButton) convertView.findViewById(R.id.button_move_down);
             holder.bAction1 = (ImageButton) convertView.findViewById(R.id.button_edit_rule);
             holder.bAction2 = (Button) convertView.findViewById(R.id.button_disable_rule);
             holder.bAction3 = (ImageButton) convertView.findViewById(R.id.button_delete_rule);
@@ -82,6 +84,20 @@ public class PackageAdapter extends BaseAdapter {
         ((SwipeListView)parent).recycle(convertView, position);
 
         holder.tvTitle.setText(item.getName());
+
+        holder.bActionUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.obtainMessage(RuleList.MESSAGE_MOVE_RULE_UP, position, -1).sendToTarget();
+            }
+        });
+
+        holder.bActionDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.obtainMessage(RuleList.MESSAGE_MOVE_RULE_DOWN, position, -1).sendToTarget();
+            }
+        });
 
 
         holder.bAction1.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +127,8 @@ public class PackageAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView tvTitle;
+        ImageButton bActionUp;
+        ImageButton bActionDown;
         ImageButton bAction1;
         Button bAction2;
         ImageButton bAction3;

@@ -1,5 +1,8 @@
 package edu.cmich.cps396m.geosilence;
 
+import android.content.Context;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,9 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.content.Context;
-import android.util.Log;
 
 /**
  * a class to store and access a {@link List} of {@link Rule}s. Rules are stored
@@ -102,24 +102,24 @@ public class StorageManager {
 		write();
 	}
 
-	public void moveUp(Rule rule) {
+	public void moveDown(Rule rule) {
 		int index = rules.indexOf(rule);
 		moveUp(index);
 	}
 
-	public void moveUp(int index) {
-		if (index >= 0 && index < rules.size()) {
+	public void moveDown(int index) {
+		if (index >= 0 && index < rules.size()-1) {
 			rules.add(index + 1, rules.remove(index));
 			write();
 		}
 	}
 
-	public void moveDown(Rule rule) {
+	public void moveUp(Rule rule) {
 		int index = rules.indexOf(rule);
 		moveDown(index);
 	}
 
-	public void moveDown(int index) {
+	public void moveUp(int index) {
 		if (index > 0 && index <= rules.size()) {
 			rules.add(index - 1, rules.remove(index));
 			write();

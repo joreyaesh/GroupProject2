@@ -61,17 +61,31 @@
         style="@style/ListFrontContent">
 
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            style="@style/ListTitle"
-            android:id="@+id/example_row_tv_title" />
+        <ImageButton
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:src="@drawable/up_arrow"
+            android:id="@+id/button_move_up"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" />
+
+        <ImageButton
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:src="@drawable/down_arrow"
+            android:id="@+id/button_move_down"
+            android:layout_below="@+id/example_row_tv_title"
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            style="@style/ListDescription"
-            android:id="@+id/example_row_tv_description" />
+            style="@style/ListTitle"
+            android:id="@+id/example_row_tv_title"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/button_move_up" />
 
     </RelativeLayout>
 

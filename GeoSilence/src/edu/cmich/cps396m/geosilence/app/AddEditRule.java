@@ -83,12 +83,12 @@ public class AddEditRule extends Activity {
 		//otherwise generating a new default rule
 		if (getIntent().hasExtra(NRL)) {
 			workingRule = (Rule) getIntent().getExtras().get(NRL);
-            // Don't allow the name to be changed, as it is used when
-            // replacing the old rule with the new one
-            EditText nameField = (EditText) findViewById(R.id.editTextName);
-            nameField.setFocusableInTouchMode(false);
-            nameField.setFocusable(false);
-            nameField.setClickable(false);
+//            // Don't allow the name to be changed, as it is used when
+//            // replacing the old rule with the new one
+//            EditText nameField = (EditText) findViewById(R.id.editTextName);
+//            nameField.setFocusableInTouchMode(false);
+//            nameField.setFocusable(false);
+//            nameField.setClickable(false);
 		} else {
 			workingRule = new Rule();
 		}

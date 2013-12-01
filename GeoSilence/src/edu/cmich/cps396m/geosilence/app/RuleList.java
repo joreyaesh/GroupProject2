@@ -47,6 +47,8 @@ public class RuleList extends Activity {
 	public static final int MESSAGE_EDIT_RULE = 1;
 	public static final int MESSAGE_DISABLE_RULE = 2;
 	public static final int MESSAGE_DELETE_RULE = 3;
+    public static final int MESSAGE_MOVE_RULE_UP = 4;
+    public static final int MESSAGE_MOVE_RULE_DOWN = 5;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +165,7 @@ public class RuleList extends Activity {
 			case MESSAGE_DISABLE_RULE:
                 boolean status = rule.isActive();
 				rule.setActive(!status);
-				data.get(position).setActive(!status);
+                new ListAppTask().execute();
                 storageManager.write();
 				Toast.makeText(getApplicationContext(),
 						"Rule " + rule.getName() + (status ? " disabled" : " enabled"), Toast.LENGTH_SHORT)
@@ -174,12 +176,21 @@ public class RuleList extends Activity {
 			// DELETE button
 			case MESSAGE_DELETE_RULE:
 				storageManager.deleteRule(position);
-				data.remove(data.get(position));
-				adapter.notifyDataSetChanged();
+                new ListAppTask().execute();
 				swipeListView.closeAnimate(position);
 				Toast.makeText(getApplicationContext(), "Rule " + rule.getName() + " deleted", Toast.LENGTH_SHORT)
 						.show();
 				break;
+            // Up arrow
+            case MESSAGE_MOVE_RULE_UP:
+                storageManager.moveUp(position);
+                new ListAppTask().execute();
+                break;
+            // Down arrow
+            case MESSAGE_MOVE_RULE_DOWN:
+                storageManager.moveDown(position);
+                new ListAppTask().execute();
+                break;
 			}
 		}
 	};
@@ -208,18 +219,14 @@ public class RuleList extends Activity {
 		Log.d("GS", "Result received with resultCode="+resultCode+",requestCode:"+requestCode);
 		if (resultCode == RESULT_OK) {
 			if (requestCode == AR) {
-				// if a new rule was returned from AddEditRule, save it and
-				// refresh list
+				// if a new rule was returned from AddEditRule, save it and refresh list
 				Bundle b = data.getExtras();
 				Rule newRule = (Rule) b.get(AddEditRule.NRL);
 				try {
 					storageManager.addRule(newRule);
-					PackageItem item = new PackageItem(newRule);
-					this.data.add(item);
+                    new ListAppTask().execute();
 					Toast.makeText(this, "New rule saved", Toast.LENGTH_LONG).show();
 					Log.d("GS", "New rule added: " + newRule.toString());
-					// update the SwipeListView
-					adapter.notifyDataSetChanged();
 				} catch (DataException e) {
 					Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
 					Log.e("GS", "Error saving new rule: " + e.getMessage());
@@ -230,26 +237,16 @@ public class RuleList extends Activity {
 				Rule updatedRule = (Rule) bb.get(AddEditRule.NRL);
 				try {
 					storageManager.replaceRule(requestCode, updatedRule);
+                    new ListAppTask().execute();
 				} catch (DataException e) {
 					Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
 					Log.e("GS", "Error saving updated rule: " + e.getMessage());
 				}
 
-				PackageItem item = new PackageItem(updatedRule);
-				int index = -1;
-				for (PackageItem packageItem : this.data) {
-					if (packageItem.getName().equals(item.getName()))
-						index = this.data.indexOf(packageItem);
-				}
-				// remove the old item
-				this.data.remove(index);
-				// add the new item to the same location that the old one was
-				// removed from
-				this.data.add(index, item);
+                new ListAppTask().execute();
 				Toast.makeText(this, "Rule " + updatedRule.getName() + " updated", Toast.LENGTH_LONG).show();
 				// update the SwipeListView
-				swipeListView.closeAnimate(index);
-				adapter.notifyDataSetChanged();
+				swipeListView.closeAnimate(requestCode);
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
