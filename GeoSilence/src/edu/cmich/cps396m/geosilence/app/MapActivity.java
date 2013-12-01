@@ -60,6 +60,7 @@ public class MapActivity extends Activity {
 		
 		//getting a handle on GoogleMap and setting onclick listener
 		gmap = ((MapFragment) getFragmentManager().findFragmentById(R.id.selectLocationMap)).getMap();
+		gmap.setMyLocationEnabled(true);
 		gmap.setOnMapClickListener(new OnMapClickListener() {
 			@Override
 			public void onMapClick(LatLng point) {
@@ -156,16 +157,12 @@ public class MapActivity extends Activity {
 			break;
 			
 		case R.id.action_satellite:
-			GPSTracker gps = new GPSTracker(this);
-			LatLng point = new LatLng(gps.getLatitude(),gps.getLongitude());
-			updateMarker(point);
-			
-			
-			//TODO scroll map to current location
-			//TODO place pin in current location
+			gmap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
 			break;
 		case R.id.action_normal:
-			//TODO
+			gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+						
 			break;
 		}
 		return super.onMenuItemSelected(featureId, item);

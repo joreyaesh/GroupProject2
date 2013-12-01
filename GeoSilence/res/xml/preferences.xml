@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ListPreference 
+        android:summary="Lower values result in better performance" 
+        android:title="Location Check Frequency" 
+        android:key="locFreq" 
+        android:entries="@array/FrequencyMinuteText" 
+        android:entryValues="@array/FrequencyMinuteData" android:defaultValue="10"/>
+    
+
+</PreferenceScreen>
