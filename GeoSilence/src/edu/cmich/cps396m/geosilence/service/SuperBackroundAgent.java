@@ -64,22 +64,22 @@ public class SuperBackroundAgent extends WakefulIntentService{
 		
 		Rule ruleToUse = null;
 		
-		for(Rule rule: rules){
-			if (ruleIsTrue(rule)) {
-				ruleToUse = rule;
-				Toast.makeText(getApplicationContext(), "Active Rule Found", Toast.LENGTH_SHORT).show();
-				activateRule(ruleToUse);
+		for(int i = 0; i < rules.size() && ruleToUse == null; ++i) {
+			if (ruleIsTrue(rules.get(i))) {
+				ruleToUse = rules.get(i);
+				//Toast.makeText(getApplicationContext(), "Active Rule Found", Toast.LENGTH_SHORT).show();
 			}
-			
-		}
-		                                         //can be deleted, only to save battery. We can make this a setting.
+		 }
+		activateRule(ruleToUse);
 	  }
+		                                         //can be deleted, only to save battery. We can make this a setting.
+	  
 
 
 	private boolean ruleIsTrue(Rule rule) {
     	if (rule.isActive()==true && 
     			//TODO check time interval
-    							//TODO check weekday
+    						rule.getWeekdays()[weekday] == true &&
     			isWithinRadius(rule.getLat(), rule.getLng(), loc.getLatitude(), loc.getLongitude(), rule.getRadius()) == true){
     		return true;
     	}
@@ -99,13 +99,19 @@ public class SuperBackroundAgent extends WakefulIntentService{
 	private void activateRule(Rule rule) {
 		//TODO change to default from settings
 		int mode = AudioManager.RINGER_MODE_NORMAL;
+	
 		if (rule != null){
 			mode = rule.getMode();
 		
 		//activate profile
-		Toast.makeText(getApplicationContext(), "Changing sound profile", Toast.LENGTH_SHORT).show();
+		
 		AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
-		am.setRingerMode(mode);
+		
+		if(am.getMode() != mode){
+			Toast.makeText(getApplicationContext(), "Changing sound profile", Toast.LENGTH_SHORT).show();	
+			am.setRingerMode(mode);
+		}
+		
 		
 		}
 	}
