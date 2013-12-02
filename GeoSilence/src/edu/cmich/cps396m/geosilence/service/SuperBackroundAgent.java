@@ -111,7 +111,7 @@ public class SuperBackroundAgent extends WakefulIntentService{
 		
 		AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
 		
-		if(am.getMode() != mode){
+		if(am.getRingerMode() != mode){
 			toast("Changing sound profile");
 			am.setRingerMode(mode);
 		}
