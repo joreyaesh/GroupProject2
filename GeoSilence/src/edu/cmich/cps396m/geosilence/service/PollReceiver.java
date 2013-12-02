@@ -14,10 +14,11 @@ public class PollReceiver extends BroadcastReceiver {
 	private static int minutes = 10;
 	private static final int PERIOD = 1000 * 60 * minutes; // min minutes
 	private static final int INITIAL_DELAY = 1000 * 5; // 5 seconds
+	private Context ctxt;
 
 	@Override
 	public void onReceive(Context ctxt, Intent i) {
-		//Log.d("GS", "Alarm received");
+		// Log.d("GS", "Alarm received");
 		if (i.getAction() == null) {
 			WakefulIntentService.sendWakefulWork(ctxt,
 					SuperBackroundAgent.class);
@@ -26,18 +27,44 @@ public class PollReceiver extends BroadcastReceiver {
 		}
 	}
 
-	public static void scheduleAlarms(Context ctxt) {
-		AlarmManager mgr = (AlarmManager) ctxt.getSystemService(Context.ALARM_SERVICE);
+	public void scheduleAlarms(Context ctxt) {
+		this.ctxt = ctxt;
+		AlarmManager mgr = (AlarmManager) ctxt
+				.getSystemService(Context.ALARM_SERVICE);
 		Intent i = new Intent(ctxt, PollReceiver.class);
 		PendingIntent pi = PendingIntent.getBroadcast(ctxt, 0, i, 0);
 
-		mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()
-				+ INITIAL_DELAY, PERIOD, pi);
-		//Log.d("GS", "Alarms scheduled");
-		
+		mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+				SystemClock.elapsedRealtime() + INITIAL_DELAY, PERIOD, pi);
+		// Log.d("GS", "Alarms scheduled");
+
 	}
-	
-	
+
+	public void SetOrDeleteAlarm(int Interval) {
+
+		if (Interval != 0) {
+			AlarmManager mgr = (AlarmManager) ctxt
+					.getSystemService(Context.ALARM_SERVICE);
+			Intent i = new Intent(ctxt, PollReceiver.class);
+			PendingIntent pi = PendingIntent.getBroadcast(ctxt, 0, i, 0);
+
+			mgr.cancel(pi);
+
+			mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+					SystemClock.elapsedRealtime() + INITIAL_DELAY, PERIOD, pi);
+		}
+
+		else {
+			AlarmManager mgr = (AlarmManager) ctxt
+					.getSystemService(Context.ALARM_SERVICE);
+			Intent i = new Intent(ctxt, PollReceiver.class);
+			PendingIntent pi = PendingIntent.getBroadcast(ctxt, 0, i, 0);
+
+			mgr.cancel(pi);
+		}
+
+	}
+
 	public void changeIntveral(int minutes) {
 		this.minutes = minutes;
 	}

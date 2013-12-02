@@ -71,7 +71,7 @@ public class SuperBackroundAgent extends WakefulIntentService{
         for(int i = 0; i < rules.size() && ruleToUse == null; ++i) {
             if (ruleIsTrue(rules.get(i))) {
                 ruleToUse = rules.get(i);
-                toast("Active Rule Found");
+                //toast("Active Rule Found");
             }
         }
         activateRule(ruleToUse);
@@ -96,7 +96,7 @@ public class SuperBackroundAgent extends WakefulIntentService{
         float[] results = new float[3];
         Location.distanceBetween(lat1, lng1, lat2, lng2, results);
         double distanceFt = results[0] * 3.28084;
-        Log.d("GS", "Distance found: " + distanceFt + "ft, radius: " + radius + "ft.");
+        //Log.d("GS", "Distance found: " + distanceFt + "ft, radius: " + radius + "ft.");
         return distanceFt < radius;
     }
 
