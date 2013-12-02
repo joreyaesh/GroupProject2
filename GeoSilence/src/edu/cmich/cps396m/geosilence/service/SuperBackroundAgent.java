@@ -44,10 +44,10 @@ public class SuperBackroundAgent extends WakefulIntentService{
 
         //keep for debugging
         if (loc != null){
-            toast("Current Location Found");
+            //toast("Current Location Found");
         }
         else{
-            toast("LOCATION NOT FOUND!!!");
+            //toast("LOCATION NOT FOUND!!!");
         }
     }
 
