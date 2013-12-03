@@ -27,8 +27,8 @@ public class PollReceiver extends BroadcastReceiver {
 		}
 	}
 
-	public void scheduleAlarms(Context ctxt) {
-		this.ctxt = ctxt;
+	public static void scheduleAlarms(Context ctxt) {
+		//this.ctxt = ctxt;
 		AlarmManager mgr = (AlarmManager) ctxt
 				.getSystemService(Context.ALARM_SERVICE);
 		Intent i = new Intent(ctxt, PollReceiver.class);
