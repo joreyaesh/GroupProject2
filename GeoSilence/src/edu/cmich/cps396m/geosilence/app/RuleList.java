@@ -202,7 +202,7 @@ public class RuleList extends Activity {
         Button button = (Button) swipeListView.getChildAt(position)
                 .findViewById(R.id.back)
                 .findViewById(R.id.button_disable_rule);
-        button.setText((rule.isActive() ? "Disable" : "Enable"));
+        button.setText((rule.isActive() ? "Enable" : "Disable"));
         adapter.notifyDataSetChanged();
     }
 
