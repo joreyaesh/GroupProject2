@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import edu.cmich.cps396m.geosilence.R;
+import edu.cmich.cps396m.geosilence.service.PollReceiver;
 
 public class Preferences extends Activity {
 	@Override
@@ -26,5 +27,9 @@ public class Preferences extends Activity {
 		}
 	}
 	
-	
+	@Override
+	protected void onStop() {
+		PollReceiver.scheduleAlarms(getApplicationContext());
+		super.onStop();
+	}
 }

@@ -11,7 +11,7 @@
             android:id="@+id/toggleButtonSun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="48dp"
+            android:minWidth="40dp"
             android:textOff="@string/weekdaySun"
             android:textOn="@string/weekdaySun" />
 
@@ -19,7 +19,7 @@
             android:id="@+id/toggleButtonMon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="48dp"
+            android:minWidth="40dp"
             android:textOff="@string/weekdayMon"
             android:textOn="@string/weekdayMon" />
 
@@ -27,7 +27,7 @@
             android:id="@+id/toggleButtonTue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="48dp"
+            android:minWidth="40dp"
             android:textOff="@string/weekdayTue"
             android:textOn="@string/weekdayTue" />
 
@@ -35,7 +35,7 @@
             android:id="@+id/toggleButtonWed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="48dp"
+            android:minWidth="40dp"
             android:textOff="@string/weekdayWed"
             android:textOn="@string/weekdayWed" />
 
@@ -43,7 +43,7 @@
             android:id="@+id/toggleButtonThu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="48dp"
+            android:minWidth="40dp"
             android:textOff="@string/weekdayThu"
             android:textOn="@string/weekdayThu" />
 
@@ -51,7 +51,7 @@
             android:id="@+id/toggleButtonFri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="48dp"
+            android:minWidth="40dp"
             android:textOff="@string/weekdayFri"
             android:textOn="@string/weekdayFri" />
 
@@ -59,7 +59,7 @@
             android:id="@+id/toggleButtonSat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="48dp"
+            android:minWidth="40dp"
             android:textOff="@string/weekdaySat"
             android:textOn="@string/weekdaySat" />
 

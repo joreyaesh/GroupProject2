@@ -54,20 +54,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             layout="@layout/weekday" />
-
-        <TextView
-            android:id="@+id/textViewTimeFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textTimeFrom"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/textViewTimeTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textTimeTo"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
         
     </LinearLayout>
 </ScrollView>

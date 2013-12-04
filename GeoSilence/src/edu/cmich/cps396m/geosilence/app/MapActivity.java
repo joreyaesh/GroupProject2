@@ -2,20 +2,20 @@ package edu.cmich.cps396m.geosilence.app;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -87,9 +87,14 @@ public class MapActivity extends Activity {
 		//updating marker if a location has been passed to activity
 		Bundle b = getIntent().getExtras();
 		LatLng loc = (LatLng)b.get(LOCATION);
-		if (loc != null) {
-			updateMarker(loc);
+		if (loc.latitude == 0 && loc.longitude == 0) {
+			GPSTracker gpstr = new GPSTracker(this);
+			if(gpstr.canGetLocation()) {
+				Location location = gpstr.getLocation();
+				loc = new LatLng(location.getLatitude(), location.getLongitude());
+			}
 		}
+		updateMarker(loc);
 		//updating radius if radius value has been passed to activity
 		if (0 == (radius = b.getInt(RADIUS))) {
 			radius = radiusValues.get(DEFAULT_RADIUS);
@@ -125,6 +130,9 @@ public class MapActivity extends Activity {
 			marker.remove();
 		marker = gmap.addMarker(new MarkerOptions().position(point));
 		updateRadius();
+		
+		
+		gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, Math.max(14F, gmap.getCameraPosition().zoom)));
 	}
 	
 	/**
