@@ -2,6 +2,7 @@ package edu.cmich.cps396m.geosilence.app;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,16 +51,18 @@ public class RuleList extends Activity {
     public static final int MESSAGE_MOVE_RULE_UP = 4;
     public static final int MESSAGE_MOVE_RULE_DOWN = 5;
 
+    private Context mContext = this;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_rule_list);
 
 		// start up the service
-		PollReceiver.scheduleAlarms(this);
+		PollReceiver.scheduleAlarms(mContext);
 
 		// handles all rule storage
-		storageManager = new StorageManager(this);
+		storageManager = new StorageManager(mContext);
 
 		// set up the custom ListView
 		setupSwipeListView();
@@ -67,12 +70,14 @@ public class RuleList extends Activity {
 
 	private void setupSwipeListView() {
 		data = new ArrayList<PackageItem>();
-		adapter = new PackageAdapter(this, data, mHandler);
+		adapter = new PackageAdapter(mContext, data, mHandler);
 		swipeListView = (SwipeListView) findViewById(R.id.example_lv_list);
 
 		swipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
 			@Override
             public void onOpened(int position, boolean toRight) {
+                // Make sure the Enable/Disable button is updated
+                updateButtonText(position);
 			}
 
 			@Override
@@ -125,7 +130,7 @@ public class RuleList extends Activity {
 
 		new ListAppTask().execute();
 
-		progressDialog = new ProgressDialog(this);
+		progressDialog = new ProgressDialog(mContext);
 		progressDialog.setMessage("Loading");
 		progressDialog.setCancelable(false);
 		progressDialog.show();
@@ -165,20 +170,20 @@ public class RuleList extends Activity {
 			case MESSAGE_DISABLE_RULE:
                 boolean status = rule.isActive();
 				rule.setActive(!status);
-                new ListAppTask().execute();
                 storageManager.write();
-				Toast.makeText(getApplicationContext(),
+				Toast.makeText(mContext,
 						"Rule " + rule.getName() + (status ? " disabled" : " enabled"), Toast.LENGTH_SHORT)
 						.show();
                 // update the SwipeListView
                 updateButtonText(position);
+                new ListAppTask().execute();
 				break;
 			// DELETE button
 			case MESSAGE_DELETE_RULE:
 				storageManager.deleteRule(position);
                 new ListAppTask().execute();
 				swipeListView.closeAnimate(position);
-				Toast.makeText(getApplicationContext(), "Rule " + rule.getName() + " deleted", Toast.LENGTH_SHORT)
+				Toast.makeText(mContext, "Rule " + rule.getName() + " deleted", Toast.LENGTH_SHORT)
 						.show();
 				break;
             // Up arrow
@@ -202,8 +207,8 @@ public class RuleList extends Activity {
         Button button = (Button) swipeListView.getChildAt(position)
                 .findViewById(R.id.back)
                 .findViewById(R.id.button_disable_rule);
-        button.setText((rule.isActive() ? "Enable" : "Disable"));
-        adapter.notifyDataSetChanged();
+        button.setText((rule.isActive() ? "Disable" : "Enable"));
+        new ListAppTask().execute();
     }
 
     @Override
@@ -227,10 +232,10 @@ public class RuleList extends Activity {
 				try {
 					storageManager.addRule(newRule);
                     new ListAppTask().execute();
-					Toast.makeText(this, "New rule saved", Toast.LENGTH_LONG).show();
+					Toast.makeText(mContext, "New rule saved", Toast.LENGTH_LONG).show();
 					Log.d("GS", "New rule added: " + newRule.toString());
 				} catch (DataException e) {
-					Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+					Toast.makeText(mContext, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
 					Log.e("GS", "Error saving new rule: " + e.getMessage());
 				}
 			} else {
@@ -240,12 +245,12 @@ public class RuleList extends Activity {
 				try {
 					storageManager.replaceRule(requestCode, updatedRule);
 				} catch (DataException e) {
-					Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+					Toast.makeText(mContext, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
 					Log.e("GS", "Error saving updated rule: " + e.getMessage());
 				}
 
                 new ListAppTask().execute();
-				Toast.makeText(this, "Rule " + updatedRule.getName() + " updated", Toast.LENGTH_LONG).show();
+				Toast.makeText(mContext, "Rule " + updatedRule.getName() + " updated", Toast.LENGTH_LONG).show();
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
@@ -255,11 +260,11 @@ public class RuleList extends Activity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add:
-			Intent i = new Intent(this, AddEditRule.class);
+			Intent i = new Intent(mContext, AddEditRule.class);
 			startActivityForResult(i, AR);
 			break;
 		case R.id.action_settings:
-			Intent pref_intent = new Intent(this, Preferences.class);
+			Intent pref_intent = new Intent(mContext, Preferences.class);
 			startActivity(pref_intent);
 			break;
 		}
@@ -288,6 +293,10 @@ public class RuleList extends Activity {
 		protected void onPostExecute(List<PackageItem> result) {
 			data.clear();
 			data.addAll(result);
+
+            // Update the profile when the UI updates
+            PollReceiver.scheduleAlarms(mContext);
+
 			adapter.notifyDataSetChanged();
 			if (progressDialog != null) {
 				progressDialog.dismiss();

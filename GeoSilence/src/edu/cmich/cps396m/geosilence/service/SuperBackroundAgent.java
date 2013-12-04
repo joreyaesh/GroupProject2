@@ -112,7 +112,7 @@ public class SuperBackroundAgent extends WakefulIntentService{
         AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         if(am.getRingerMode() != mode){
-            toast("Changing sound profile");
+            //toast("Changing sound profile"); // Disabled because this is displayed when a current profile (that isn't RINGER_MODE_NORMAL) is already active, and is still active after an update
             am.setRingerMode(mode);
         }
 
